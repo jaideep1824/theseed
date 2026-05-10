@@ -18,9 +18,10 @@ export default function DashboardPage() {
     }, []);
 
     async function loadData() {
+        try{
         const supabase = createClient();
         const { data: { user: authUser } } = await supabase.auth.getUser();
-        if (!authUser) return;
+        if (!authUser){setLoading(false); return;}
 
         const { data: userData } = await supabase
             .from('users')
@@ -31,8 +32,14 @@ export default function DashboardPage() {
 
         const res = await fetch('/api/bots');
         const data = await res.json();
-        setBots(data.bots || []);
-        setLoading(false);
+        setBots(data.bots || []);}
+        catch(error) {
+            console.error('Dashboard load error:', error);
+        }
+        finally{
+            setLoading(false);
+        }
+
     }
 
     async function handleDelete(botId: string) {
