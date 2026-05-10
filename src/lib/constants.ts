@@ -1,5 +1,5 @@
 export const PLAN_LIMITS = {
-    free: { maxBots: 1, maxMessagesPerDay: 30 },
+    free: { maxBots: 1, maxMessagesPerDay: 1000 },
     pro: { maxBots: 5, maxMessagesPerDay: Infinity },
     creator: { maxBots: Infinity, maxMessagesPerDay: Infinity },
 } as const;
